@@ -1,9 +1,8 @@
-﻿namespace PortfolioApi.Models
-{
-    public class HomeHistoryDTO
-    {
-        public string Title { get; set; }
+﻿namespace PortfolioApi.Models;
 
-        public List<string> Texts { get; set; }
-    }
+public class HomeHistoryDTO
+{
+    public string Title { get; set; }
+
+    public List<string> Texts { get; set; }
 }
