@@ -47,7 +47,7 @@ public class ProjectsController : ControllerBase
             new ProjectDTO
             {
                 Title = "Python Projects",
-                ImgUrl = "/static/media/python-logo.755f4b6a7ab54b8d0ac4.jp",
+                ImgUrl = "/static/media/python-logo.755f4b6a7ab54b8d0ac4.jpg",
                 Text = "After the kalaha projects, I continued coding in my free time and other courses in university. I have gathered them all in one collective repository on github, where you can view all of them. They are all calculators, except the kalaha one.",
                 GitUrl = "https://github.com/jonasermann/python-projects/"
             },
