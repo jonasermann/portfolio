@@ -7,7 +7,7 @@ namespace PortfolioApi.Controllers;
 [Route("api/[controller]")]
 public class HomeController : ControllerBase
 {
-    [HttpGet("/Home-Content")]
+    [HttpGet("Home-Content")]
     public HomeContentDTO GetHomeContent()
     {
         var homeContent = new HomeContentDTO
@@ -20,7 +20,7 @@ public class HomeController : ControllerBase
         return homeContent;
     }
 
-    [HttpGet("/Home-History")]
+    [HttpGet("Home-History")]
     public HomeHistoryDTO GetHomeHistory()
     {
         var homeHistory = new HomeHistoryDTO
@@ -37,7 +37,7 @@ public class HomeController : ControllerBase
         return homeHistory;
     }
 
-    [HttpGet("/Home-Links")]
+    [HttpGet("Home-Links")]
     public List<HomeLinksDTO> GetHomeLinks()
     {
         var homeLinks = new List<HomeLinksDTO>
@@ -63,5 +63,4 @@ public class HomeController : ControllerBase
 
         return homeLinks;
     }
-
 }
