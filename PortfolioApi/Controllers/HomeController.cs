@@ -8,8 +8,7 @@ namespace PortfolioApi.Controllers;
 [Route("api/[controller]")]
 public class HomeController : ControllerBase
 {
-    private IHomeRepository _repo;
-
+    private IHomeRepository _repo
     public HomeController(IHomeRepository repo)
     {
         _repo = repo;

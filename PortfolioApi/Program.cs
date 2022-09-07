@@ -18,6 +18,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IHomeRepository, HomeRepository>();
 builder.Services.AddScoped<IProjectsRepository, ProjectsRepository>();
 builder.Services.AddScoped<IContactsRepository, ContactsRepository>();
+builder.Services.AddScoped<ISkillsRepository, SkillsRepository>();
 builder.Services.AddScoped<IPortfolioImagesRepository, PortfolioImagesRepository>();
 
 var app = builder.Build();

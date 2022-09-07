@@ -17,6 +17,7 @@ public class PortfolioAppContext : DbContext
     public DbSet<HomeLinks>? HomeLinks { get; set; }
     public DbSet<Project>? Projects { get; set; }
     public DbSet<Contact>? Contacts { get; set; }
+    public DbSet<Skill> Skills { get; set; }
     public DbSet<PortfolioImage> PortfolioImages { get; set; }
 
 }
