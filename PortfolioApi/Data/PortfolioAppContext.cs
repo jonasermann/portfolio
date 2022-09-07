@@ -1,8 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PortfolioApi.Models;
-using System.ComponentModel;
-using System.IO;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace PortfolioApi.Data;
 
@@ -19,5 +16,4 @@ public class PortfolioAppContext : DbContext
     public DbSet<Contact>? Contacts { get; set; }
     public DbSet<Skill> Skills { get; set; }
     public DbSet<PortfolioImage> PortfolioImages { get; set; }
-
 }
