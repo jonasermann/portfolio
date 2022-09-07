@@ -2,7 +2,5 @@
 
 public class HomeHistoryDTO
 {
-    public string Title { get; set; }
-
-    public List<string> Texts { get; set; }
+    public string Text { get; set; }
 }

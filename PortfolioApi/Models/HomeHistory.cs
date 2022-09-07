@@ -4,7 +4,5 @@ public class HomeHistory
 {
     public int Id { get; set; }
 
-    public string Title { get; set; }
-
-    public List<string> Texts { get; set; }
+    public string Text { get; set; }
 }
