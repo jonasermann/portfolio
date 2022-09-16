@@ -53,5 +53,5 @@ jobs:
         with:
           app-name: 'jeportapi'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_87F7145A4FDA4587A0950A1529B5194E }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_27B0A5A482C54732A4AB8F38DDA9471F }}
           package: .
