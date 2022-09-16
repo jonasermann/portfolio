@@ -17,5 +17,5 @@ public class PortfolioImagesController : ControllerBase
     }
 
     [HttpGet("{id}")]
-    public IActionResult PortImage(int id) => id == 2 ? File(_repo.Get(id), "image/gif") : File(_repo.Get(id), "image/jpg");
+    public async Task<IActionResult> PortImage(int id) => id == 2 ? File(await _repo.Get(id), "image/gif") : File(await _repo.Get(id), "image/jpg");
 }

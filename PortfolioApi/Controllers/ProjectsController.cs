@@ -16,5 +16,5 @@ public class ProjectsController : ControllerBase
     }
 
     [HttpGet]
-    public List<ProjectDTO> Get() => _repo.Get();
+    public async Task<List<ProjectDTO>> Get() => await _repo.Get();
 }

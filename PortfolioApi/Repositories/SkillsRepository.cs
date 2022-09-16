@@ -1,5 +1,6 @@
 ﻿using PortfolioApi.Data;
 using PortfolioApi.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace PortfolioApi.Repositories;
 
@@ -12,11 +13,19 @@ public class SkillsRepository : ISkillsRepository
         _context = context;
     }
 
-    public List<SkillDTO> GetBackend()
+    public async Task<List<SkillDTO>> GetSkills(int identifier)
     {
-        var objs = _context.Skills.Where(s => s.Type == 0).ToList();
+        if (_context.Skills == null) return new List<SkillDTO>()
+        {
+            new SkillDTO
+            {
+                Text = "Something went wrong... Please try again later!"
+            }
+        };
 
-        var dtos = objs.Select(c => new SkillDTO
+        var objs = await _context.Skills.ToListAsync();
+
+        var dtos = objs.Where(s => s.Type == identifier).Select(c => new SkillDTO
         {
             ImgUrl = c.ImgUrl,
             Text = c.Text
@@ -25,17 +34,7 @@ public class SkillsRepository : ISkillsRepository
         return dtos;
     }
 
-    public List<SkillDTO> GetFrontend()
-    {
-        var objs = _context.Skills.Where(s => s.Type == 1).ToList();
+    public async Task<List<SkillDTO>> GetBackend() => await GetSkills(0);
 
-        var dtos = objs.Select(c => new SkillDTO
-        {
-            ImgUrl = c.ImgUrl,
-            Text = c.Text
-        }).ToList();
-
-        return dtos;
-    }
+    public async Task<List<SkillDTO>> GetFrontend() => await GetSkills(1);
 }
-

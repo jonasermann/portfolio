@@ -4,5 +4,5 @@ namespace PortfolioApi.Repositories;
 
 public interface IContactsRepository
 {
-    public List<ContactDTO> Get();
+    public Task<List<ContactDTO>> Get();
 }

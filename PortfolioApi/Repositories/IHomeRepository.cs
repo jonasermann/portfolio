@@ -4,9 +4,9 @@ namespace PortfolioApi.Repositories;
 
 public interface IHomeRepository
 {
-    public HomeContentDTO GetHomeContent();
+    public Task<HomeContentDTO> GetHomeContent();
 
-    public List<HomeHistoryDTO> GetHomeHistory();
+    public Task<List<HomeHistoryDTO>> GetHomeHistory();
 
-    public List<HomeLinksDTO> GetHomeLinks();
+    public Task<List<HomeLinksDTO>> GetHomeLinks();
 }

@@ -15,8 +15,8 @@ public class SkillsController : ControllerBase
     }
 
     [HttpGet("Backend")]
-    public List<SkillDTO> GetBackend() => _repo.GetBackend();
+    public async Task<List<SkillDTO>> GetBackend() => await _repo.GetBackend();
 
     [HttpGet("Frontend")]
-    public List<SkillDTO> GetFrontend() => _repo.GetFrontend();
+    public async Task<List<SkillDTO>> GetFrontend() => await _repo.GetFrontend();
 }

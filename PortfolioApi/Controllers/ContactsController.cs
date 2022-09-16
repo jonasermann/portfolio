@@ -16,5 +16,5 @@ public class ContactsController : Controller
     }
 
     [HttpGet]
-    public List<ContactDTO> Get() => _repo.Get();
+    public async Task<List<ContactDTO>> Get() => await _repo.Get();
 }

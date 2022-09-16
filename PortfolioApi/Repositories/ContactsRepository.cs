@@ -1,5 +1,6 @@
 ﻿using PortfolioApi.Data;
 using PortfolioApi.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace PortfolioApi.Repositories;
 
@@ -12,9 +13,16 @@ public class ContactsRepository : IContactsRepository
         _context = context;
     }
 
-    public List<ContactDTO> Get()
+    public async Task<List<ContactDTO>> Get()
     {
-        var objs = _context.Contacts.ToList();
+        if(_context.Contacts == null) return new List<ContactDTO> { 
+            new ContactDTO
+            { 
+                Text = "Something went wrong... please try again later!" 
+            } 
+        };
+
+        var objs = await _context.Contacts.ToListAsync();
 
         var dtos = objs.Select(c => new ContactDTO
         {

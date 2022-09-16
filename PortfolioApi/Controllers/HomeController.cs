@@ -15,11 +15,11 @@ public class HomeController : ControllerBase
     }
 
     [HttpGet("Home-Content")]
-    public HomeContentDTO GetHomeContent() => _repo.GetHomeContent();
+    public async Task<HomeContentDTO> GetHomeContent() => await _repo.GetHomeContent();
 
     [HttpGet("Home-History")]
-    public List<HomeHistoryDTO> GetHomeHistory() => _repo.GetHomeHistory();
+    public async Task<List<HomeHistoryDTO>> GetHomeHistory() => await _repo.GetHomeHistory();
 
     [HttpGet("Home-Links")]
-    public List<HomeLinksDTO> GetHomeLinks() => _repo.GetHomeLinks();
+    public async Task<List<HomeLinksDTO>> GetHomeLinks() => await _repo.GetHomeLinks();
 }

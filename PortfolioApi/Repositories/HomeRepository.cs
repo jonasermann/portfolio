@@ -1,6 +1,6 @@
 ﻿using PortfolioApi.Data;
 using PortfolioApi.Models;
-using System.Data.Entity;
+using Microsoft.EntityFrameworkCore;
 
 namespace PortfolioApi.Repositories;
 
@@ -13,9 +13,14 @@ public class HomeRepository : IHomeRepository
         _context = context;
     }
 
-    public HomeContentDTO GetHomeContent()
+    public async Task<HomeContentDTO> GetHomeContent()
     {
-        var obj = _context.HomeContent.FirstOrDefault();
+        if (_context.HomeContent == null) return new HomeContentDTO 
+        {
+            Text = "Something went wrong... please try again later!"
+        };
+
+        var obj = await _context.HomeContent.FirstOrDefaultAsync();
 
         var dto = new HomeContentDTO
         {
@@ -26,9 +31,17 @@ public class HomeRepository : IHomeRepository
         return dto;
     }
 
-    public List<HomeHistoryDTO> GetHomeHistory()
+    public async Task<List<HomeHistoryDTO>> GetHomeHistory()
     {
-        var objs = _context.HomeHistory.ToList();
+        if (_context.HomeHistory == null) return new List<HomeHistoryDTO>
+        {
+            new HomeHistoryDTO 
+            {
+                Text = "Something went wrong... please try again later!"
+            }
+        };
+
+        var objs = await _context.HomeHistory.ToListAsync();
 
         var dtos = objs.Select(h => new HomeHistoryDTO
         {
@@ -38,9 +51,17 @@ public class HomeRepository : IHomeRepository
         return dtos;
     }
 
-    public List<HomeLinksDTO> GetHomeLinks()
+    public async Task<List<HomeLinksDTO>> GetHomeLinks()
     {
-        var obj = _context.HomeLinks.ToList();
+        if (_context.HomeLinks == null) return new List<HomeLinksDTO>
+        {
+            new HomeLinksDTO
+            {
+                Text = "Something went wrong... please try again later!"
+            }
+        };
+
+        var obj = await _context.HomeLinks.ToListAsync();
 
         var dtos = obj.Select(h => new HomeLinksDTO
         {

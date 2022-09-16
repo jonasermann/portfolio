@@ -1,6 +1,6 @@
 ﻿using PortfolioApi.Data;
 using PortfolioApi.Models;
-using System.Data.Entity;
+using Microsoft.EntityFrameworkCore;
 
 namespace PortfolioApi.Repositories;
 
@@ -13,9 +13,16 @@ public class ProjectsRepository : IProjectsRepository
         _context = context;
     }
 
-    public List<ProjectDTO> Get()
+    public async Task<List<ProjectDTO>> Get()
     {
-        var objs = _context.Projects.ToList();
+        if (_context.Projects == null) return new List<ProjectDTO>() {
+            new ProjectDTO
+            {
+                Text = "Something went wrong.. Please try again later!"
+            }
+        };
+
+        var objs = await _context.Projects.ToListAsync();
 
         var dtos = objs.Select(p => new ProjectDTO
         {
