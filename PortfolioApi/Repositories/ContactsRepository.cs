@@ -22,14 +22,15 @@ public class ContactsRepository : IContactsRepository
             } 
         };
 
-        var objs = await _context.Contacts.ToListAsync();
+        var contacts = await _context.Contacts.ToListAsync();
 
-        var dtos = objs.Select(c => new ContactDTO
+        var contactDTOs = contacts.Select(c => new ContactDTO
         {
+            Id = c.Id,
             ImgUrl = c.ImgUrl,
             Text = c.Text
         }).ToList();
 
-        return dtos;
+        return contactDTOs;
     }
 }

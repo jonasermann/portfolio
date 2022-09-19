@@ -23,15 +23,15 @@ public class SkillsRepository : ISkillsRepository
             }
         };
 
-        var objs = await _context.Skills.ToListAsync();
+        var skills = await _context.Skills.ToListAsync();
 
-        var dtos = objs.Where(s => s.Type == identifier).Select(c => new SkillDTO
+        var skillDTOs = skills.Where(s => s.Type == identifier).Select(c => new SkillDTO
         {
             ImgUrl = c.ImgUrl,
             Text = c.Text
         }).ToList();
 
-        return dtos;
+        return skillDTOs;
     }
 
     public async Task<List<SkillDTO>> GetBackend() => await GetSkills(0);
