@@ -22,10 +22,10 @@ public class ProjectsController : ControllerBase
     public async Task<ProjectDTO> Get(int id) => await _repo.Get(id);
 
     [HttpPost]
-    public async Task<ProjectDTO> Add(ProjectDTO projectDTO) => await _repo.Add(projectDTO);
+    public async Task<ProjectDTO> Add(ProjectCreateDTO projectCreateDTO) => await _repo.Add(projectCreateDTO);
 
     [HttpPut]
-    public async Task<Project> Put(Project project) => await _repo.Put(project);
+    public async Task<ProjectDTO> Put(ProjectDTO projectDTO) => await _repo.Put(projectDTO);
 
     [HttpDelete("{id}")]
     public async Task Delete(int id) => await _repo.Delete(id);

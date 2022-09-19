@@ -8,9 +8,9 @@ public interface IProjectsRepository
 
     public Task<ProjectDTO> Get(int id);
 
-    public Task<ProjectDTO> Add(ProjectDTO projectDTO);
+    public Task<ProjectDTO> Add(ProjectCreateDTO projectCreateDTO);
 
-    public Task<Project> Put(Project project);
+    public Task<ProjectDTO> Put(ProjectDTO projectDTO);
 
     public Task Delete(int id);
 }

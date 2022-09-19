@@ -13,36 +13,28 @@ public class ProjectsRepository : IProjectsRepository
         _context = context;
     }
 
-    public ProjectDTO ConvertToProjectDTO(Project project)
+    public ProjectDTO ConvertToProjectDTO(Project project) =>  new ProjectDTO
     {
-        return new ProjectDTO
-        {
-            Title = project.Title,
-            ImgUrl = project.ImgUrl,
-            Text = project.Text,
-            GitUrl = project.GitUrl
-        };
-    }
+        Id = project.Id,
+        Title = project.Title,
+        ImgUrl = project.ImgUrl,
+        Text = project.Text,
+        GitUrl = project.GitUrl
+    };
 
-    public Project ConvertToProject(ProjectDTO projectDTO, int id)
+    public Project ConvertToProject(ProjectDTO projectDTO) => new Project
     {
-        return new Project
-        {
-            Id = id,
-            Title = projectDTO.Title,
-            ImgUrl = projectDTO.ImgUrl,
-            Text = projectDTO.Text,
-            GitUrl = projectDTO.GitUrl
-        };
-    }
+        Id = projectDTO.Id,
+        Title = projectDTO.Title,
+        ImgUrl = projectDTO.ImgUrl,
+        Text = projectDTO.Text,
+        GitUrl = projectDTO.GitUrl
+    };
 
-    public ProjectDTO EmptyProjectDTO()
+    public ProjectDTO EmptyProjectDTO() => new ProjectDTO
     {
-        return new ProjectDTO
-        {
-            Text = "Something went wrong.. Please try again later!"
-        };
-    }
+        Text = "Something went wrong.. Please try again later!"
+    };
 
     public async Task<List<ProjectDTO>> Get()
     {
@@ -62,23 +54,32 @@ public class ProjectsRepository : IProjectsRepository
         return ConvertToProjectDTO(project);
     }
 
-    public async Task<ProjectDTO> Add(ProjectDTO projectDTO)
+    public async Task<ProjectDTO> Add(ProjectCreateDTO projectCreateDTO)
     {
         if (_context.Projects == null) return EmptyProjectDTO();
         int id = await _context.Projects.MaxAsync(p => p.Id);
+        var newProject = new Project
+        {
+            Id = id + 1,
+            Title = projectCreateDTO.Title,
+            ImgUrl = projectCreateDTO.ImgUrl,
+            Text = projectCreateDTO.Text,
+            GitUrl = projectCreateDTO.GitUrl,
+        };
 
-        await _context.Projects.AddAsync(ConvertToProject(projectDTO, id + 1));
+        await _context.Projects.AddAsync(newProject);
         await _context.SaveChangesAsync();
-        return projectDTO;
+        return ConvertToProjectDTO(newProject);
     }
 
-    public async Task<Project> Put(Project project)
+    public async Task<ProjectDTO> Put(ProjectDTO projectDTO)
     {
         if (_context.Projects == null) throw new Exception("Database Empty.");
-        _context.Projects.Update(project);
+        var updatedProject = ConvertToProject(projectDTO);
+        _context.Projects.Update(updatedProject);
 
         await _context.SaveChangesAsync();
-        return project;
+        return projectDTO;
     }
 
     public async Task Delete(int id)
