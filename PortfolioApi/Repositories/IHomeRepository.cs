@@ -8,5 +8,5 @@ public interface IHomeRepository
 
     public Task<List<HomeHistoryDTO>> GetHomeHistory();
 
-    public Task<List<HomeLinksDTO>> GetHomeLinks();
+    public Task<List<HomeLinkDTO>> GetHomeLinks();
 }

@@ -51,11 +51,11 @@ public class HomeRepository : IHomeRepository
         return dtos;
     }
 
-    public async Task<List<HomeLinksDTO>> GetHomeLinks()
+    public async Task<List<HomeLinkDTO>> GetHomeLinks()
     {
-        if (_context.HomeLinks == null) return new List<HomeLinksDTO>
+        if (_context.HomeLinks == null) return new List<HomeLinkDTO>
         {
-            new HomeLinksDTO
+            new HomeLinkDTO
             {
                 Text = "Something went wrong... please try again later!"
             }
@@ -63,7 +63,7 @@ public class HomeRepository : IHomeRepository
 
         var obj = await _context.HomeLinks.ToListAsync();
 
-        var dtos = obj.Select(h => new HomeLinksDTO
+        var dtos = obj.Select(h => new HomeLinkDTO
         {
             ImgUrl = h.ImgUrl,
             Url = h.Url,

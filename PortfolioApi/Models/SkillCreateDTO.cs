@@ -1,12 +1,9 @@
 ﻿namespace PortfolioApi.Models;
 
-public class HomeLinks
+public class SkillCreateDTO
 {
     public int Id { get; set; }
-
-    public string? ImgUrl {get; set; }
-
-    public string? Url { get; set; }
+    public string? ImgUrl { get; set; }
 
     public string? Text { get; set; }
 }
