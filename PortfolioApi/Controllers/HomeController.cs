@@ -17,9 +17,9 @@ public class HomeController : ControllerBase
     [HttpGet("Home-Content")]
     public async Task<HomeContentDTO> GetHomeContent() => await _repo.GetHomeContent();
 
-    [HttpGet("Home-History")]
+    [HttpGet("Home-Histories")]
     public async Task<List<HomeHistoryDTO>> GetHomeHistory() => await _repo.GetHomeHistory();
 
     [HttpGet("Home-Links")]
-    public async Task<List<HomeLinksDTO>> GetHomeLinks() => await _repo.GetHomeLinks();
+    public async Task<List<HomeLinkDTO>> GetHomeLinks() => await _repo.GetHomeLinks();
 }

@@ -1,6 +1,6 @@
 ﻿namespace PortfolioApi.Models;
 
-public class HomeLinksDTO
+public class HomeLinkDTO
 {
     public string? ImgUrl { get; set; }
 

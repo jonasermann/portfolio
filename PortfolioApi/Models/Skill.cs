@@ -1,7 +1,9 @@
 ﻿namespace PortfolioApi.Models;
+using System.ComponentModel.DataAnnotations;
 
 public class Skill
 {
+    [Required]
     public int Id { get; set; }
 
     public string? ImgUrl { get; set; }

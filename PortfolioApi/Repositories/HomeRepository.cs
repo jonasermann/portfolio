@@ -22,6 +22,11 @@ public class HomeRepository : IHomeRepository
 
         var obj = await _context.HomeContent.FirstOrDefaultAsync();
 
+        if (obj == null) return new HomeContentDTO
+        {
+            Text = "Something went wrong... please try again later!"
+        };
+
         var dto = new HomeContentDTO
         {
             ProfilePicUrl = obj.ProfilePicUrl,
@@ -33,7 +38,7 @@ public class HomeRepository : IHomeRepository
 
     public async Task<List<HomeHistoryDTO>> GetHomeHistory()
     {
-        if (_context.HomeHistory == null) return new List<HomeHistoryDTO>
+        if (_context.HomeHistories == null) return new List<HomeHistoryDTO>
         {
             new HomeHistoryDTO 
             {
@@ -41,7 +46,7 @@ public class HomeRepository : IHomeRepository
             }
         };
 
-        var objs = await _context.HomeHistory.ToListAsync();
+        var objs = await _context.HomeHistories.ToListAsync();
 
         var dtos = objs.Select(h => new HomeHistoryDTO
         {
@@ -51,11 +56,11 @@ public class HomeRepository : IHomeRepository
         return dtos;
     }
 
-    public async Task<List<HomeLinksDTO>> GetHomeLinks()
+    public async Task<List<HomeLinkDTO>> GetHomeLinks()
     {
-        if (_context.HomeLinks == null) return new List<HomeLinksDTO>
+        if (_context.HomeLinks == null) return new List<HomeLinkDTO>
         {
-            new HomeLinksDTO
+            new HomeLinkDTO
             {
                 Text = "Something went wrong... please try again later!"
             }
@@ -63,7 +68,7 @@ public class HomeRepository : IHomeRepository
 
         var obj = await _context.HomeLinks.ToListAsync();
 
-        var dtos = obj.Select(h => new HomeLinksDTO
+        var dtos = obj.Select(h => new HomeLinkDTO
         {
             ImgUrl = h.ImgUrl,
             Url = h.Url,
