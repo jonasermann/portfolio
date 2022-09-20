@@ -7,4 +7,12 @@ public interface ISkillsRepository
     public Task<List<SkillDTO>> GetBackend();
 
     public Task<List<SkillDTO>> GetFrontend();
+
+    public Task<List<SkillDTO>> GetLanguages();
+
+    public Task<SkillDTO> Add(SkillCreateDTO skillCreateDTO);
+
+    public Task<SkillDTO> Put(SkillDTO skillDTO);
+
+    public Task Delete(int id);
 }

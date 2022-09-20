@@ -31,10 +31,7 @@ public class ProjectsRepository : IProjectsRepository
         GitUrl = projectDTO.GitUrl
     };
 
-    public ProjectDTO EmptyProjectDTO() => new ProjectDTO
-    {
-        Text = "Something went wrong.. Please try again later!"
-    };
+    public ProjectDTO EmptyProjectDTO() => new ProjectDTO { };
 
     public async Task<List<ProjectDTO>> Get()
     {
@@ -56,8 +53,10 @@ public class ProjectsRepository : IProjectsRepository
 
     public async Task<ProjectDTO> Add(ProjectCreateDTO projectCreateDTO)
     {
-        if (_context.Projects == null) return EmptyProjectDTO();
-        int id = await _context.Projects.MaxAsync(p => p.Id);
+        int id;
+        if (_context.Projects == null) id = 0;
+        else id = await _context.Projects.MaxAsync(p => p.Id);
+
         var newProject = new Project
         {
             Id = id + 1,
@@ -67,6 +66,7 @@ public class ProjectsRepository : IProjectsRepository
             GitUrl = projectCreateDTO.GitUrl,
         };
 
+        if (_context.Projects == null) return EmptyProjectDTO();
         await _context.Projects.AddAsync(newProject);
         await _context.SaveChangesAsync();
         return ConvertToProjectDTO(newProject);
