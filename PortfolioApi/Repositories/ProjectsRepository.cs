@@ -38,8 +38,8 @@ public class ProjectsRepository : IProjectsRepository
         if (_context.Projects == null) return new List<ProjectDTO>() { EmptyProjectDTO() };
         var projects = await _context.Projects.ToListAsync();
 
-        var dtos = projects.Select(p => ConvertToProjectDTO(p)).ToList();
-        return dtos;
+        var projectDTOs = projects.Select(p => ConvertToProjectDTO(p)).ToList();
+        return projectDTOs;
     }
 
     public async Task<ProjectDTO> Get(int id)
@@ -76,9 +76,10 @@ public class ProjectsRepository : IProjectsRepository
     {
         if (_context.Projects == null) throw new Exception("Database Empty.");
         var updatedProject = ConvertToProject(projectDTO);
-        _context.Projects.Update(updatedProject);
 
+        _context.Projects.Update(updatedProject);
         await _context.SaveChangesAsync();
+
         return projectDTO;
     }
 

@@ -1,4 +1,6 @@
-﻿namespace PortfolioApi.Models;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace PortfolioApi.Models;
 
 public class Skill
 {

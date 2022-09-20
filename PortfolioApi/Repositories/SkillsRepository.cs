@@ -1,7 +1,6 @@
 ﻿using PortfolioApi.Data;
 using PortfolioApi.Models;
 using Microsoft.EntityFrameworkCore;
-using System.Data.Entity;
 
 namespace PortfolioApi.Repositories;
 
@@ -18,14 +17,16 @@ public class SkillsRepository : ISkillsRepository
     {
         Id = skill.Id,
         ImgUrl = skill.ImgUrl,
-        Text = skill.Text
+        Text = skill.Text,
+        Type = skill.Type
     };
 
     public Skill ConvertToSkill(SkillDTO skillDTO) => new Skill
     {
         Id = skillDTO.Id,
         ImgUrl = skillDTO.ImgUrl,
-        Text = skillDTO.Text
+        Text = skillDTO.Text,
+        Type = skillDTO.Type
     };
 
     public SkillDTO EmptySkillDTO() => new SkillDTO { };
@@ -47,6 +48,15 @@ public class SkillsRepository : ISkillsRepository
 
     public async Task<List<SkillDTO>> GetLanguages() => await GetSkills(2);
 
+    public async Task<List<SkillDTO>> Get()
+    {
+        if (_context.Skills == null) return new List<SkillDTO>() { };
+        var skills = await _context.Skills.ToListAsync();
+
+        var skillDTOs = skills.Select(p => ConvertToSkillDTO(p)).ToList();
+        return skillDTOs;
+    }
+
     public async Task<SkillDTO> Get(int id)
     {
         if (_context.Skills == null) return EmptySkillDTO();
@@ -66,7 +76,8 @@ public class SkillsRepository : ISkillsRepository
         {
             Id = id + 1,
             ImgUrl = skillCreateDTO.ImgUrl,
-            Text = skillCreateDTO.Text
+            Text = skillCreateDTO.Text,
+            Type = skillCreateDTO.Type
         };
 
         if (_context.Skills == null) return EmptySkillDTO();
@@ -78,11 +89,10 @@ public class SkillsRepository : ISkillsRepository
 
     public async Task<SkillDTO> Put(SkillDTO skillDTO)
     {
-        if (_context.Skills == null) return EmptySkillDTO();
-        var skill = _context.Skills.FirstOrDefaultAsync(s => s.Id == skillDTO.Id);
+        if (_context.Skills == null) throw new Exception("Database Empty.");
+        var updatedSkill = ConvertToSkill(skillDTO);
 
-        if (skill == null) return EmptySkillDTO();
-        _context.Update(ConvertToSkill(skillDTO));
+        _context.Update(updatedSkill);
         await _context.SaveChangesAsync();
 
         return skillDTO;
@@ -95,5 +105,6 @@ public class SkillsRepository : ISkillsRepository
 
         if(skill == null) return;
         _context.Remove(skill);
+        await _context.SaveChangesAsync();
     }
 }

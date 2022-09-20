@@ -10,6 +10,10 @@ public interface ISkillsRepository
 
     public Task<List<SkillDTO>> GetLanguages();
 
+    public Task<List<SkillDTO>> Get();
+
+    public Task<SkillDTO> Get(int id);
+
     public Task<SkillDTO> Add(SkillCreateDTO skillCreateDTO);
 
     public Task<SkillDTO> Put(SkillDTO skillDTO);
