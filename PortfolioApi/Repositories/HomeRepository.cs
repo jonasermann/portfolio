@@ -13,29 +13,19 @@ public class HomeRepository : IHomeRepository
         _context = context;
     }
 
-    public HomeContent ConvertToHomeContent(HomeContentDTO homeContentDTO) => new HomeContent
-    {
-        Id = homeContentDTO.Id,
-        ProfilePicUrl = homeContentDTO.ProfilePicUrl,
-        Text = homeContentDTO.Text
-    };
-
     public HomeContentDTO ConvertToHomeContentDTO(HomeContent homeContent) => new HomeContentDTO
     {
         Id = homeContent.Id,
-        ProfilePicUrl = homeContent.ProfilePicUrl,
         Text = homeContent.Text
     };
 
-    public HomeContent EmptyHomeContent() => new HomeContent
+    public HomeContent ConvertToHomeContent(HomeContentDTO homeContentDTO) => new HomeContent
     {
-        Text = "Something went wrong... please try again later!"
+        Id = homeContentDTO.Id,
+        Text = homeContentDTO.Text
     };
 
-    public HomeContentDTO EmptyHomeContentDTO() => new HomeContentDTO
-    {
-        Text = "Something went wrong... please try again later!"
-    };
+    public HomeContentDTO EmptyHomeContentDTO() => new HomeContentDTO { };
 
     public async Task<HomeContentDTO> GetHomeContent()
     {
@@ -43,43 +33,170 @@ public class HomeRepository : IHomeRepository
         var homeContent = await _context.HomeContent.FirstOrDefaultAsync();
 
         if (homeContent == null) return EmptyHomeContentDTO();
-
         return ConvertToHomeContentDTO(homeContent);
     }
 
-    public async Task<List<HomeHistoryDTO>> GetHomeHistory()
+    public async Task<HomeContentDTO> PutHomeContent(HomeContentDTO homeContentDTO)
     {
-        if (_context.HomeHistory == null) return new List<HomeHistoryDTO>() { };
+        if (_context.HomeContent == null) throw new Exception("Database Empty.");
+        var updatedHomeContent = ConvertToHomeContent(homeContentDTO);
 
-        var homeHistories = await _context.HomeHistory.ToListAsync();
+        _context.HomeContent.Update(updatedHomeContent);
+        await _context.SaveChangesAsync();
 
-        var homeHIstoryDTOs = homeHistories.Select(h => new HomeHistoryDTO
-        {
-            Text = h.Text
-        }).ToList();
-
-        return homeHIstoryDTOs;
+        return homeContentDTO;
     }
+
+
+
+
+    public HomeHistoryDTO ConvertToHomeHistoryDTO(HomeHistory homeHistory) => new HomeHistoryDTO
+    {
+        Id = homeHistory.Id,
+        Text = homeHistory.Text
+    };
+
+    public HomeHistory ConvertToHomeHistory(HomeHistoryDTO homeHistoryDTO) => new HomeHistory
+    {
+        Id = homeHistoryDTO.Id,
+        Text = homeHistoryDTO.Text
+    };
+
+    public HomeHistoryDTO EmptyHomeHistoryDTO() => new HomeHistoryDTO { };
+
+    public async Task<List<HomeHistoryDTO>> GetHomeHistories()
+    {
+        if (_context.HomeHistories == null) return new List<HomeHistoryDTO>() { };
+        var homeHistorys = await _context.HomeHistories.ToListAsync();
+
+        var homeHistoryDTOs = homeHistorys.Select(p => ConvertToHomeHistoryDTO(p)).ToList();
+        return homeHistoryDTOs;
+    }
+
+    public async Task<HomeHistoryDTO> GetHomeHistory(int id)
+    {
+        if (_context.HomeHistories == null) return EmptyHomeHistoryDTO();
+        var homeHistory = await _context.HomeHistories.FirstOrDefaultAsync(p => p.Id == id);
+
+        if (homeHistory == null) return EmptyHomeHistoryDTO();
+        return ConvertToHomeHistoryDTO(homeHistory);
+    }
+
+    public async Task<HomeHistoryDTO> AddHomeHistory(HomeHistoryCreateDTO homeHistoryCreateDTO)
+    {
+        int id;
+        if (_context.HomeHistories == null) id = 0;
+        else id = await _context.HomeHistories.MaxAsync(p => p.Id);
+
+        var newHomeHistory = new HomeHistory
+        {
+            Id = id + 1,
+            Text = homeHistoryCreateDTO.Text
+        };
+
+        if (_context.HomeHistories == null) return EmptyHomeHistoryDTO();
+        await _context.HomeHistories.AddAsync(newHomeHistory);
+        await _context.SaveChangesAsync();
+
+        return ConvertToHomeHistoryDTO(newHomeHistory);
+    }
+
+    public async Task<HomeHistoryDTO> PutHomeHistory(HomeHistoryDTO homeHistoryDTO)
+    {
+        if (_context.HomeHistories == null) throw new Exception("Database Empty.");
+        var updatedHomeHistory = ConvertToHomeHistory(homeHistoryDTO);
+
+        _context.HomeHistories.Update(updatedHomeHistory);
+        await _context.SaveChangesAsync();
+
+        return homeHistoryDTO;
+    }
+
+    public async Task DeleteHomeHistory(int id)
+    {
+        if (_context.HomeHistories == null) return;
+        var homeHistory = await _context.HomeHistories.FirstOrDefaultAsync(p => p.Id == id);
+
+        if (homeHistory == null) return;
+        _context.Remove(homeHistory);
+        await _context.SaveChangesAsync();
+    }
+
+
+
+
+    public HomeLinkDTO ConvertToHomeLinkDTO(HomeLink homeLink) => new HomeLinkDTO
+    {
+        Id = homeLink.Id,
+        ImgUrl = homeLink.ImgUrl,
+        Text = homeLink.Text
+    };
+
+    public HomeLink ConvertToHomeLink(HomeLinkDTO homeLinkDTO) => new HomeLink
+    {
+        Id = homeLinkDTO.Id,
+        ImgUrl = homeLinkDTO.ImgUrl,
+        Text = homeLinkDTO.Text
+    };
+
+    public HomeLinkDTO EmptyHomeLinkDTO() => new HomeLinkDTO { };
 
     public async Task<List<HomeLinkDTO>> GetHomeLinks()
     {
-        if (_context.HomeLinks == null) return new List<HomeLinkDTO>
-        {
-            new HomeLinkDTO
-            {
-                Text = "Something went wrong... please try again later!"
-            }
-        };
-
+        if (_context.HomeLinks == null) return new List<HomeLinkDTO>() { };
         var homeLinks = await _context.HomeLinks.ToListAsync();
 
-        var homeLinkDTOs = homeLinks.Select(h => new HomeLinkDTO
-        {
-            ImgUrl = h.ImgUrl,
-            Url = h.Url,
-            Text = h.Text
-        }).ToList();
-
+        var homeLinkDTOs = homeLinks.Select(p => ConvertToHomeLinkDTO(p)).ToList();
         return homeLinkDTOs;
+    }
+
+    public async Task<HomeLinkDTO> GetHomeLink(int id)
+    {
+        if (_context.HomeLinks == null) return EmptyHomeLinkDTO();
+        var homeLink = await _context.HomeLinks.FirstOrDefaultAsync(p => p.Id == id);
+
+        if (homeLink == null) return EmptyHomeLinkDTO();
+        return ConvertToHomeLinkDTO(homeLink);
+    }
+
+    public async Task<HomeLinkDTO> AddHomeLink(HomeLinkCreateDTO homeLinkCreateDTO)
+    {
+        int id;
+        if (_context.HomeLinks == null) id = 0;
+        else id = await _context.HomeLinks.MaxAsync(p => p.Id);
+
+        var newHomeLink = new HomeLink
+        {
+            Id = id + 1,
+            ImgUrl = homeLinkCreateDTO.ImgUrl,
+            Text = homeLinkCreateDTO.Text
+        };
+
+        if (_context.HomeLinks == null) return EmptyHomeLinkDTO();
+        await _context.HomeLinks.AddAsync(newHomeLink);
+        await _context.SaveChangesAsync();
+
+        return ConvertToHomeLinkDTO(newHomeLink);
+    }
+
+    public async Task<HomeLinkDTO> PutHomeLink(HomeLinkDTO homeLinkDTO)
+    {
+        if (_context.HomeLinks == null) throw new Exception("Database Empty.");
+        var updatedHomeLink = ConvertToHomeLink(homeLinkDTO);
+
+        _context.HomeLinks.Update(updatedHomeLink);
+        await _context.SaveChangesAsync();
+
+        return homeLinkDTO;
+    }
+
+    public async Task DeleteHomeLink(int id)
+    {
+        if (_context.HomeLinks == null) return;
+        var homeLink = await _context.HomeLinks.FirstOrDefaultAsync(p => p.Id == id);
+
+        if (homeLink == null) return;
+        _context.Remove(homeLink);
+        await _context.SaveChangesAsync();
     }
 }
