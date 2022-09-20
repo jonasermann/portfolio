@@ -17,4 +17,16 @@ public class ContactsController : Controller
 
     [HttpGet]
     public async Task<List<ContactDTO>> Get() => await _repo.Get();
+
+    [HttpGet("{id}")]
+    public async Task<ContactDTO> Get(int id) => await _repo.Get(id);
+
+    [HttpPost]
+    public async Task<ContactDTO> Add(ContactCreateDTO contactCreateDTO) => await _repo.Add(contactCreateDTO);
+
+    [HttpPut]
+    public async Task<ContactDTO> Put(ContactDTO contactDTO) => await _repo.Put(contactDTO);
+
+    [HttpDelete("{id}")]
+    public async Task Delete(int id) => await _repo.Delete(id);
 }

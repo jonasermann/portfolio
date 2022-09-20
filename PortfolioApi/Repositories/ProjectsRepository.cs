@@ -35,7 +35,7 @@ public class ProjectsRepository : IProjectsRepository
 
     public async Task<List<ProjectDTO>> Get()
     {
-        if (_context.Projects == null) return new List<ProjectDTO>() { EmptyProjectDTO() };
+        if (_context.Projects == null) return new List<ProjectDTO>() { };
         var projects = await _context.Projects.ToListAsync();
 
         var projectDTOs = projects.Select(p => ConvertToProjectDTO(p)).ToList();
@@ -69,6 +69,7 @@ public class ProjectsRepository : IProjectsRepository
         if (_context.Projects == null) return EmptyProjectDTO();
         await _context.Projects.AddAsync(newProject);
         await _context.SaveChangesAsync();
+
         return ConvertToProjectDTO(newProject);
     }
 
@@ -90,7 +91,6 @@ public class ProjectsRepository : IProjectsRepository
 
         if (project == null) return;
         _context.Remove(project);
-
         await _context.SaveChangesAsync();
     }
 }
