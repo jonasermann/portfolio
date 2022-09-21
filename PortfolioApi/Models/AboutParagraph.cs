@@ -1,7 +1,7 @@
 ﻿namespace PortfolioApi.Models;
 using System.ComponentModel.DataAnnotations;
 
-public class HomeHistory
+public class AboutParagraph
 {
     [Required]
     public int Id { get; set; }

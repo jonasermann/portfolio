@@ -1,6 +1,8 @@
 ﻿namespace PortfolioApi.Models;
 
-public class HomeHistoryDTO
+public class AboutParagraphDTO
 {
+    public int Id { get; set; }
+
     public string? Text { get; set; }
 }

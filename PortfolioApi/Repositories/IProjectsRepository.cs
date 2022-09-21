@@ -5,4 +5,12 @@ namespace PortfolioApi.Repositories;
 public interface IProjectsRepository
 {
     public Task<List<ProjectDTO>> Get();
+
+    public Task<ProjectDTO> Get(int id);
+
+    public Task<ProjectDTO> Add(ProjectCreateDTO projectCreateDTO);
+
+    public Task<ProjectDTO> Put(ProjectDTO projectDTO);
+
+    public Task Delete(int id);
 }

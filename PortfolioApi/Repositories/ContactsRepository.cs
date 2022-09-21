@@ -13,23 +13,78 @@ public class ContactsRepository : IContactsRepository
         _context = context;
     }
 
+    public ContactDTO ConvertToContactDTO(Contact Contact) => new ContactDTO
+    {
+        Id = Contact.Id,
+        ImgUrl = Contact.ImgUrl,
+        Text = Contact.Text
+    };
+
+    public Contact ConvertToContact(ContactDTO ContactDTO) => new Contact
+    {
+        Id = ContactDTO.Id,
+        ImgUrl = ContactDTO.ImgUrl,
+        Text = ContactDTO.Text
+    };
+
+    public ContactDTO EmptyContactDTO() => new ContactDTO { };
+
     public async Task<List<ContactDTO>> Get()
     {
-        if(_context.Contacts == null) return new List<ContactDTO> { 
-            new ContactDTO
-            { 
-                Text = "Something went wrong... please try again later!" 
-            } 
+        if (_context.Contacts == null) return new List<ContactDTO>() { };
+        var contacts = await _context.Contacts.ToListAsync();
+
+        var contactDTOs = contacts.Select(p => ConvertToContactDTO(p)).ToList();
+        return contactDTOs;
+    }
+
+    public async Task<ContactDTO> Get(int id)
+    {
+        if (_context.Contacts == null) return EmptyContactDTO();
+        var contact = await _context.Contacts.FirstOrDefaultAsync(p => p.Id == id);
+
+        if (contact == null) return EmptyContactDTO();
+        return ConvertToContactDTO(contact);
+    }
+
+    public async Task<ContactDTO> Add(ContactCreateDTO contactCreateDTO)
+    {
+        int id;
+        if (_context.Contacts == null) id = 0;
+        else id = await _context.Contacts.MaxAsync(p => p.Id);
+
+        var newContact = new Contact
+        {
+            Id = id + 1,
+            ImgUrl = contactCreateDTO.ImgUrl,
+            Text = contactCreateDTO.Text
         };
 
-        var objs = await _context.Contacts.ToListAsync();
+        if (_context.Contacts == null) return EmptyContactDTO();
+        await _context.Contacts.AddAsync(newContact);
+        await _context.SaveChangesAsync();
 
-        var dtos = objs.Select(c => new ContactDTO
-        {
-            ImgUrl = c.ImgUrl,
-            Text = c.Text
-        }).ToList();
+        return ConvertToContactDTO(newContact);
+    }
 
-        return dtos;
+    public async Task<ContactDTO> Put(ContactDTO contactDTO)
+    {
+        if (_context.Contacts == null) throw new Exception("Database Empty.");
+        var updatedContact = ConvertToContact(contactDTO);
+
+        _context.Contacts.Update(updatedContact);
+        await _context.SaveChangesAsync();
+
+        return contactDTO;
+    }
+
+    public async Task Delete(int id)
+    {
+        if (_context.Contacts == null) return;
+        var contact = await _context.Contacts.FirstOrDefaultAsync(p => p.Id == id);
+
+        if (contact == null) return;
+        _context.Remove(contact);
+        await _context.SaveChangesAsync();
     }
 }
