@@ -55,6 +55,7 @@ public class HomeRepository : IHomeRepository
     {
         Id = homeLink.Id,
         ImgUrl = homeLink.ImgUrl,
+        Url = homeLink.Url,
         Text = homeLink.Text
     };
 
@@ -62,6 +63,7 @@ public class HomeRepository : IHomeRepository
     {
         Id = homeLinkDTO.Id,
         ImgUrl = homeLinkDTO.ImgUrl,
+        Url = homeLinkDTO.Url,
         Text = homeLinkDTO.Text
     };
 
