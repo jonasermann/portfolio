@@ -16,12 +16,14 @@ public class HomeRepository : IHomeRepository
     public HomeContentDTO ConvertToHomeContentDTO(HomeContent homeContent) => new HomeContentDTO
     {
         Id = homeContent.Id,
+        ProfilePicUrl = homeContent.ProfilePicUrl,
         Text = homeContent.Text
     };
 
     public HomeContent ConvertToHomeContent(HomeContentDTO homeContentDTO) => new HomeContent
     {
         Id = homeContentDTO.Id,
+        ProfilePicUrl = homeContentDTO.ProfilePicUrl,
         Text = homeContentDTO.Text
     };
 
