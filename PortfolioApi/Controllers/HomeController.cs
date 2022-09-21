@@ -20,27 +20,6 @@ public class HomeController : ControllerBase
     [HttpPut("Home-Content")]
     public async Task<HomeContentDTO> PutGetHomeContent(HomeContentDTO HomeContentDTO) => await _repo.PutHomeContent(HomeContentDTO);
 
-
-
-
-    [HttpGet("Home-Histories")]
-    public async Task<List<HomeHistoryDTO>> GetHomeHistories() => await _repo.GetHomeHistories();
-
-    [HttpGet("Home-Histories/{id}")]
-    public async Task<HomeHistoryDTO> GetHomeHistory(int id) => await _repo.GetHomeHistory(id);
-
-    [HttpPost("Home-Histories")]
-    public async Task<HomeHistoryDTO> AddHomeHistory(HomeHistoryCreateDTO HomeHistoryCreateDTO) => await _repo.AddHomeHistory(HomeHistoryCreateDTO);
-
-    [HttpPut("Home-Histories")]
-    public async Task<HomeHistoryDTO> PutHomeHistory(HomeHistoryDTO HomeHistoryDTO) => await _repo.PutHomeHistory(HomeHistoryDTO);
-
-    [HttpDelete("Home-Histories/{id}")]
-    public async Task DeleteHomeHistory(int id) => await _repo.DeleteHomeHistory(id);
-
-
-
-
     [HttpGet("Home-Links")]
     public async Task<List<HomeLinkDTO>> GetHomeLinks() => await _repo.GetHomeLinks();
 

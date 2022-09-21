@@ -9,7 +9,6 @@ public class PortfolioAppContext : DbContext
     {
     }
     public DbSet<HomeContent>? HomeContent { get; set; }
-    public DbSet<HomeHistory>? HomeHistories { get; set; }
     public DbSet<HomeLink>? HomeLinks { get; set; }
     public DbSet<Project>? Projects { get; set; }
     public DbSet<Contact>? Contacts { get; set; }
