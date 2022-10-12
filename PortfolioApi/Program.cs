@@ -12,7 +12,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 
-var tokenKey = builder.Configuration["TokenKey"];
+var tokenKey = builder.Configuration.GetConnectionString("TokenKey");
 var key = Encoding.ASCII.GetBytes(tokenKey);
 builder.Services.AddAuthentication(a =>
 {
@@ -32,7 +32,7 @@ builder.Services.AddAuthentication(a =>
     };
 });
 
-var connectionString = builder.Configuration["ConnectionString"];
+var connectionString = builder.Configuration.GetConnectionString("ConnectionString");
 builder.Services.AddDbContext<PortfolioAppContext>(options =>
     options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

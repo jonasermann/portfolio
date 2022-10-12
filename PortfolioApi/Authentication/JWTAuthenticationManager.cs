@@ -21,7 +21,7 @@ public class JWTAuthenticationManager : IJWTAuthenticationManager
             .AddUserSecrets(Assembly.GetExecutingAssembly())
             .Build();
 
-        var adminPassword = configuration["AdminPassword"];
+        var adminPassword = configuration.GetConnectionString("AdminPassword");
 
         if (!(password == adminPassword))
         {
