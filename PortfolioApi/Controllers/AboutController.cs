@@ -1,10 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using PortfolioApi.Models;
 using PortfolioApi.Repositories;
 
 namespace PortfolioApi.Controllers;
 
-[ApiController]
+[ApiController, Authorize]
 [Route("api/[controller]")]
 public class AboutController : ControllerBase
 {
@@ -15,10 +16,10 @@ public class AboutController : ControllerBase
         _repo = repo;
     }
 
-    [HttpGet]
+    [HttpGet, AllowAnonymous]
     public async Task<List<AboutParagraphDTO>> Get() => await _repo.Get();
 
-    [HttpGet("{id}")]
+    [HttpGet("{id}"), AllowAnonymous]
     public async Task<AboutParagraphDTO> Get(int id) => await _repo.Get(id);
 
     [HttpPost]

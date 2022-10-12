@@ -1,11 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PortfolioApi.Repositories;
 using PortfolioApi.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace PortfolioApi.Controllers;
 
+[ApiController, Authorize]
 [Route("api/[controller]")]
-[ApiController]
 public class SkillsController : ControllerBase
 {
     private ISkillsRepository _repo;
@@ -14,19 +15,19 @@ public class SkillsController : ControllerBase
         _repo = repo;
     }
 
-    [HttpGet("Backend")]
+    [HttpGet("Backend"), AllowAnonymous]
     public async Task<List<SkillDTO>> GetBackend() => await _repo.GetBackend();
 
-    [HttpGet("Frontend")]
+    [HttpGet("Frontend"), AllowAnonymous]
     public async Task<List<SkillDTO>> GetFrontend() => await _repo.GetFrontend();
 
-    [HttpGet("Languages")]
+    [HttpGet("Languages"), AllowAnonymous]
     public async Task<List<SkillDTO>> GetLanguages() => await _repo.GetLanguages();
 
-    [HttpGet]
+    [HttpGet, AllowAnonymous]
     public async Task<List<SkillDTO>> Get() => await _repo.Get();
 
-    [HttpGet("{id}")]
+    [HttpGet("{id}"), AllowAnonymous]
     public async Task<SkillDTO> Get(int id) => await _repo.Get(id);
 
     [HttpPost]
