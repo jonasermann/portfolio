@@ -1,10 +1,11 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PortfolioApi.Models;
 using PortfolioApi.Repositories;
 
 namespace PortfolioApi.Controllers;
 
-[ApiController]
+[ApiController, Authorize]
 [Route("api/[controller]")]
 public class HomeController : ControllerBase
 {
@@ -14,16 +15,16 @@ public class HomeController : ControllerBase
         _repo = repo;
     }
 
-    [HttpGet("Home-Content")]
+    [HttpGet("Home-Content"), AllowAnonymous]
     public async Task<HomeContentDTO> GetGetHomeContent() => await _repo.GetHomeContent();
 
-    [HttpPut("Home-Content")]
+    [HttpPut("Home-Content"), AllowAnonymous]
     public async Task<HomeContentDTO> PutGetHomeContent(HomeContentDTO HomeContentDTO) => await _repo.PutHomeContent(HomeContentDTO);
 
-    [HttpGet("Home-Links")]
+    [HttpGet("Home-Links"), AllowAnonymous]
     public async Task<List<HomeLinkDTO>> GetHomeLinks() => await _repo.GetHomeLinks();
 
-    [HttpGet("Home-Links/{id}")]
+    [HttpGet("Home-Links/{id}"), AllowAnonymous]
     public async Task<HomeLinkDTO> GetHomeLink(int id) => await _repo.GetHomeLink(id);
 
     [HttpPost("Home-Links")]
