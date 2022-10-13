@@ -23,25 +23,7 @@ public class JWTAuthenticationManager : IJWTAuthenticationManager
 
         var adminPassword = configuration.GetConnectionString("AdminPassword");
 
-        if (!(password == adminPassword))
-        {
-            return "Not Authorized";
-        }
 
-        var tokenHandler = new JwtSecurityTokenHandler();
-        var key = Encoding.ASCII.GetBytes(_tokenKey);
-        var tokenDescriptor = new SecurityTokenDescriptor
-        {
-            Subject = new ClaimsIdentity(new Claim[]
-            {
-                new Claim(ClaimTypes.Name, "admin")
-            }),
-            Expires = DateTime.UtcNow.AddMinutes(2),
-            SigningCredentials = new SigningCredentials(
-                new SymmetricSecurityKey(key),
-                SecurityAlgorithms.HmacSha256Signature)
-        };
-        var token = tokenHandler.CreateToken(tokenDescriptor);
         return adminPassword;
     }
 }
