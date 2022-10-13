@@ -1,6 +1,6 @@
 ﻿using Microsoft.IdentityModel.Tokens;
+using System.Configuration;
 using System.IdentityModel.Tokens.Jwt;
-using System.Reflection;
 using System.Security.Claims;
 using System.Text;
 
@@ -9,19 +9,18 @@ namespace PortfolioApi.Authentication;
 public class JWTAuthenticationManager : IJWTAuthenticationManager
 {
     private readonly string _tokenKey;
+    private IConfiguration _configuration;
 
-    public JWTAuthenticationManager(string tokenKey)
+    public JWTAuthenticationManager(string tokenKey, IConfiguration configuration)
     {
         _tokenKey = tokenKey;
+        _configuration = configuration;
     }
 
     public string Authenticate(string password)
     {
-        var configuration = new ConfigurationBuilder()
-            .AddUserSecrets(Assembly.GetExecutingAssembly())
-            .Build();
 
-        var adminPassword = configuration.GetSection("ApplicationSettings")["AdminPassword"];
+        var adminPassword = _configuration["AdminPassword"];
 
         //if (!(password == adminPassword))
         //{

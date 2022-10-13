@@ -12,7 +12,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 
-var tokenKey = builder.Configuration.GetSection("ApplicationSettings")["TokenKey"];
+var tokenKey = builder.Configuration["TokenKey"];
 var key = Encoding.ASCII.GetBytes(tokenKey);
 builder.Services.AddAuthentication(a =>
 {
@@ -45,7 +45,7 @@ builder.Services.AddScoped<IProjectsRepository, ProjectsRepository>();
 builder.Services.AddScoped<IContactsRepository, ContactsRepository>();
 builder.Services.AddScoped<ISkillsRepository, SkillsRepository>();
 builder.Services.AddScoped<IPortfolioImagesRepository, PortfolioImagesRepository>();
-builder.Services.AddSingleton<IJWTAuthenticationManager>(new JWTAuthenticationManager(tokenKey));
+builder.Services.AddSingleton<IJWTAuthenticationManager>(new JWTAuthenticationManager(tokenKey, builder.Configuration));
 
 var app = builder.Build();
 
