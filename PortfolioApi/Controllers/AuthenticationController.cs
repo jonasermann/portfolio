@@ -17,7 +17,7 @@ public class AuthenticationController : ControllerBase
     }
 
     [HttpPost]
-    public IActionResult Post([FromBody] string password)
+    public IActionResult Post(string password)
     {
         var token = _jWTAuthenticationManager.Authenticate(password);
 
