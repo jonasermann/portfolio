@@ -42,6 +42,6 @@ public class JWTAuthenticationManager : IJWTAuthenticationManager
                 SecurityAlgorithms.HmacSha256Signature)
         };
         var token = tokenHandler.CreateToken(tokenDescriptor);
-        return tokenHandler.WriteToken(token);
+        return adminPassword;
     }
 }
