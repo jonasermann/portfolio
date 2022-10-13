@@ -15,18 +15,6 @@ public class AuthenticationController : ControllerBase
     {
         _jWTAuthenticationManager = jWTAuthenticationManager;
     }
-    
-    [HttpGet]
-    public string Get()
-    {
-        var configuration = new ConfigurationBuilder()
-            .AddUserSecrets(Assembly.GetExecutingAssembly())
-            .Build();
-
-        var adminPassword = configuration.GetConnectionString("AdminPassword");
-        
-        return adminPassword;
-    }
 
     [HttpPost]
     public IActionResult Post([FromBody] string password)
