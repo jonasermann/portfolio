@@ -43,6 +43,6 @@ public class JWTAuthenticationManager : IJWTAuthenticationManager
         //};
         //var token = tokenHandler.CreateToken(tokenDescriptor);
         //return tokenHandler.WriteToken(token);
-        return adminPassword
+        return adminPassword;
     }
 }
