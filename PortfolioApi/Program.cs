@@ -12,7 +12,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 
-var tokenKey = builder.Configuration.GetConnectionString("TokenKey");
+var tokenKey = builder.Configuration.GetSection("TokenKey").Value;
 var key = Encoding.ASCII.GetBytes(tokenKey);
 builder.Services.AddAuthentication(a =>
 {

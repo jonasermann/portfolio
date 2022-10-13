@@ -21,27 +21,28 @@ public class JWTAuthenticationManager : IJWTAuthenticationManager
             .AddUserSecrets(Assembly.GetExecutingAssembly())
             .Build();
 
-        var adminPassword = configuration.GetConnectionString("AdminPassword");
+        var adminPassword = configuration.GetSection("AdminPassword").Value;
 
-        if (!(password == adminPassword))
-        {
-            return "Not Authorized";
-        }
+        //if (!(password == adminPassword))
+        //{
+        //    return "Not Authorized";
+        //}
 
-        var tokenHandler = new JwtSecurityTokenHandler();
-        var key = Encoding.ASCII.GetBytes(_tokenKey);
-        var tokenDescriptor = new SecurityTokenDescriptor
-        {
-            Subject = new ClaimsIdentity(new Claim[]
-            {
-                new Claim(ClaimTypes.Name, "admin")
-            }),
-            Expires = DateTime.UtcNow.AddMinutes(2),
-            SigningCredentials = new SigningCredentials(
-                new SymmetricSecurityKey(key),
-                SecurityAlgorithms.HmacSha256Signature)
-        };
-        var token = tokenHandler.CreateToken(tokenDescriptor);
-        return tokenHandler.WriteToken(token);
+        //var tokenHandler = new JwtSecurityTokenHandler();
+        //var key = Encoding.ASCII.GetBytes(_tokenKey);
+        //var tokenDescriptor = new SecurityTokenDescriptor
+        //{
+        //    Subject = new ClaimsIdentity(new Claim[]
+        //    {
+        //        new Claim(ClaimTypes.Name, "admin")
+        //    }),
+        //    Expires = DateTime.UtcNow.AddMinutes(2),
+        //    SigningCredentials = new SigningCredentials(
+        //        new SymmetricSecurityKey(key),
+        //        SecurityAlgorithms.HmacSha256Signature)
+        //};
+        //var token = tokenHandler.CreateToken(tokenDescriptor);
+        //return tokenHandler.WriteToken(token);
+        return adminPassword
     }
 }
