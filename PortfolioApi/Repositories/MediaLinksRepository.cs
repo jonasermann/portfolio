@@ -17,6 +17,7 @@ public class MediaLinksRepository : IMediaLinksRepository
     {
         Id = mediaLink.Id,
         ImgUrl = mediaLink.ImgUrl,
+        Url = mediaLink.Url,
         Text = mediaLink.Text
     };
 
@@ -24,6 +25,7 @@ public class MediaLinksRepository : IMediaLinksRepository
     {
         Id = mediaLinkDTO.Id,
         ImgUrl = mediaLinkDTO.ImgUrl,
+        Url = mediaLinkDTO.Url,
         Text = mediaLinkDTO.Text
     };
 
