@@ -1,6 +1,6 @@
 ﻿namespace PortfolioApi.Models;
 
-public class AboutParagraphCreateDTO
+public class BackgroundParagraphCreateDTO
 {
     public string? Text { get; set; }
 }

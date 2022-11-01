@@ -1,8 +1,10 @@
 ﻿namespace PortfolioApi.Models;
 
-public class HomeLinkCreateDTO
+public class MediaLink
 {
-    public string? ImgUrl { get; set; }
+    public int Id { get; set; }
+
+    public string? ImgUrl {get; set; }
 
     public string? Url { get; set; }
 

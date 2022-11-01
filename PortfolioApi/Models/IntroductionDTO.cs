@@ -1,6 +1,6 @@
 ﻿namespace PortfolioApi.Models;
 
-public class HomeContentDTO
+public class IntroductionDTO
 {
     public int Id { get; set; }
 

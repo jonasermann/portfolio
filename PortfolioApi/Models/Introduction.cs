@@ -1,6 +1,6 @@
 ﻿namespace PortfolioApi.Models;
 
-public class HomeContent
+public class Introduction
 {
     public int Id { get; set; }
 

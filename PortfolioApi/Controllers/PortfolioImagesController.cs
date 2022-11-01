@@ -9,7 +9,7 @@ namespace PortfolioApi.Controllers;
 [Route("api/[controller]")]
 public class PortfolioImagesController : ControllerBase
 {
-    private IPortfolioImagesRepository _repo;
+    private readonly IPortfolioImagesRepository _repo;
 
     public PortfolioImagesController(IPortfolioImagesRepository repo)
     {

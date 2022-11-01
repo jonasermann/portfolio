@@ -1,6 +1,6 @@
 ﻿namespace PortfolioApi.Models;
 
-public class AboutParagraphDTO
+public class BackgroundParagraphDTO
 {
     public int Id { get; set; }
 

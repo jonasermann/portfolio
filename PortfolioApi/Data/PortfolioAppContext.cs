@@ -9,9 +9,9 @@ public class PortfolioAppContext : DbContext
     {
     }
 
-    public DbSet<HomeContent>? HomeContent { get; set; }
-    public DbSet<HomeLink>? HomeLinks { get; set; }
-    public DbSet<AboutParagraph>? AboutParagraphs { get; set; }
+    public DbSet<Introduction>? Introduction { get; set; }
+    public DbSet<MediaLink>? MediaLinks { get; set; }
+    public DbSet<BackgroundParagraph>? BackgroundParagraphs { get; set; }
     public DbSet<Project>? Projects { get; set; }
     public DbSet<Contact>? Contacts { get; set; }
     public DbSet<Skill>? Skills { get; set; }
