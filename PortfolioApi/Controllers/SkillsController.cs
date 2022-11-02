@@ -15,15 +15,6 @@ public class SkillsController : ControllerBase
         _repo = repo;
     }
 
-    [HttpGet("Backend"), AllowAnonymous]
-    public async Task<List<SkillDTO>> GetBackend() => await _repo.GetBackend();
-
-    [HttpGet("Frontend"), AllowAnonymous]
-    public async Task<List<SkillDTO>> GetFrontend() => await _repo.GetFrontend();
-
-    [HttpGet("Languages"), AllowAnonymous]
-    public async Task<List<SkillDTO>> GetLanguages() => await _repo.GetLanguages();
-
     [HttpGet, AllowAnonymous]
     public async Task<List<SkillDTO>> Get() => await _repo.Get();
 

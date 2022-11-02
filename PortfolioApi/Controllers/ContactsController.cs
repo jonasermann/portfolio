@@ -9,7 +9,7 @@ namespace PortfolioApi.Controllers;
 [Route("api/[controller]")]
 public class ContactsController : Controller
 {
-    private IContactsRepository _repo;
+    private readonly IContactsRepository _repo;
 
     public ContactsController(IContactsRepository repo)
     {

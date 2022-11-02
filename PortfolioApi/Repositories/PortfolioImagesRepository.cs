@@ -6,7 +6,7 @@ namespace PortfolioApi.Repositories;
 
 public class PortfolioImagesRepository : IPortfolioImagesRepository
 {
-    private PortfolioAppContext _context;
+    private readonly PortfolioAppContext _context;
 
     public PortfolioImagesRepository(PortfolioAppContext context)
     {

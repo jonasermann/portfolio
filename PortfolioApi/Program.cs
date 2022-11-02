@@ -39,12 +39,13 @@ builder.Services.AddDbContext<PortfolioAppContext>(options =>
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddScoped<IHomeRepository, HomeRepository>();
-builder.Services.AddScoped<IAboutRepository, AboutRepository>();
+builder.Services.AddScoped<IIntroductionRepository, IntroductionRepository>();
+builder.Services.AddScoped<IBackgroundParagraphsRepository, BackgroundParagraphsRepository>();
 builder.Services.AddScoped<IProjectsRepository, ProjectsRepository>();
 builder.Services.AddScoped<IContactsRepository, ContactsRepository>();
 builder.Services.AddScoped<ISkillsRepository, SkillsRepository>();
 builder.Services.AddScoped<IPortfolioImagesRepository, PortfolioImagesRepository>();
+builder.Services.AddScoped<IMediaLinksRepository, MediaLinksRepository>();
 builder.Services.AddSingleton<IJWTAuthenticationManager>(new JWTAuthenticationManager(tokenKey, builder.Configuration));
 
 var app = builder.Build();

@@ -6,7 +6,7 @@ namespace PortfolioApi.Repositories;
 
 public class SkillsRepository : ISkillsRepository
 {
-    private PortfolioAppContext _context;
+    private readonly PortfolioAppContext _context;
 
     public SkillsRepository(PortfolioAppContext context)
     {
@@ -32,21 +32,6 @@ public class SkillsRepository : ISkillsRepository
     public SkillDTO EmptySkillDTO() => new SkillDTO { };
 
     public Skill EmptySkill() => new Skill { };
-
-    public async Task<List<SkillDTO>> GetSkills(int identifier)
-    {
-        if (_context.Skills == null) return new List<SkillDTO>() {};
-        var skills = await _context.Skills.ToListAsync();
-
-        var skillDTOs = skills.Where(s => s.Type == identifier).Select(s => ConvertToSkillDTO(s)).ToList();
-        return skillDTOs;
-    }
-
-    public async Task<List<SkillDTO>> GetBackend() => await GetSkills(0);
-
-    public async Task<List<SkillDTO>> GetFrontend() => await GetSkills(1);
-
-    public async Task<List<SkillDTO>> GetLanguages() => await GetSkills(2);
 
     public async Task<List<SkillDTO>> Get()
     {

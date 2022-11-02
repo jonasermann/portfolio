@@ -6,7 +6,7 @@ namespace PortfolioApi.Repositories;
 
 public class ContactsRepository : IContactsRepository
 {
-    private PortfolioAppContext _context;
+    private readonly PortfolioAppContext _context;
 
     public ContactsRepository(PortfolioAppContext context)
     {
