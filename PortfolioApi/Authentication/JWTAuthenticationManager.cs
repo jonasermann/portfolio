@@ -33,7 +33,7 @@ public class JWTAuthenticationManager : IJWTAuthenticationManager
             {
                 new Claim(ClaimTypes.Name, "admin")
             }),
-            Expires = DateTime.UtcNow.AddMinutes(2),
+            Expires = DateTime.UtcNow.AddMinutes(15),
             SigningCredentials = new SigningCredentials(
                 new SymmetricSecurityKey(key),
                 SecurityAlgorithms.HmacSha256Signature)
