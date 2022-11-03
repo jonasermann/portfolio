@@ -4,7 +4,7 @@ namespace PortfolioApi.Repositories;
 
 public interface IBackgroundParagraphsRepository
 {
-    public Task<List<BackgroundParagraphDTO>> Get();
+    public List<BackgroundParagraphDTO> Get();
 
     public Task<BackgroundParagraphDTO> Get(int id);
 

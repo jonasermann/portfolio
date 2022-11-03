@@ -13,14 +13,14 @@ public class IntroductionRepository : IIntroductionRepository
         _context = context;
     }
 
-    public IntroductionDTO ConvertToIntroductionDTO(Introduction introduction) => new IntroductionDTO
+    public IntroductionDTO ConvertToIntroductionDTO(Introduction introduction) => new ()
     {
         Id = introduction.Id,
         ProfilePicUrl = introduction.ProfilePicUrl,
         Text = introduction.Text
     };
 
-    public Introduction ConvertToIntroduction(IntroductionDTO introductionDTO) => new Introduction
+    public Introduction ConvertToIntroduction(IntroductionDTO introductionDTO) => new ()
     {
         Id = introductionDTO.Id,
         ProfilePicUrl = introductionDTO.ProfilePicUrl,

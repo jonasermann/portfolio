@@ -13,14 +13,14 @@ public class ContactsRepository : IContactsRepository
         _context = context;
     }
 
-    public ContactDTO ConvertToContactDTO(Contact Contact) => new ContactDTO
+    public static ContactDTO ConvertToContactDTO(Contact Contact) => new ()
     {
         Id = Contact.Id,
         ImgUrl = Contact.ImgUrl,
         Text = Contact.Text
     };
 
-    public Contact ConvertToContact(ContactDTO ContactDTO) => new Contact
+    public static Contact ConvertToContact(ContactDTO ContactDTO) => new ()
     {
         Id = ContactDTO.Id,
         ImgUrl = ContactDTO.ImgUrl,
@@ -29,10 +29,10 @@ public class ContactsRepository : IContactsRepository
 
     public ContactDTO EmptyContactDTO() => new ContactDTO { };
 
-    public async Task<List<ContactDTO>> Get()
+    public List<ContactDTO> Get()
     {
         if (_context.Contacts == null) return new List<ContactDTO>() { };
-        var contacts = await _context.Contacts.ToListAsync();
+        var contacts = _context.Contacts;
 
         var contactDTOs = contacts.Select(p => ConvertToContactDTO(p)).ToList();
         return contactDTOs;

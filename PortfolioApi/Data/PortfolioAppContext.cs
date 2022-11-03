@@ -3,7 +3,7 @@ using PortfolioApi.Models;
 
 namespace PortfolioApi.Data;
 
-public class PortfolioAppContext : DbContext
+public class PortfolioAppContext : DbContext, IPortfolioAppContext
 {
     public PortfolioAppContext(DbContextOptions options) : base(options)
     {

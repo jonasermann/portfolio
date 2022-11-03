@@ -17,7 +17,7 @@ public class ProjectsController : ControllerBase
     }
 
     [HttpGet, AllowAnonymous]
-    public async Task<List<ProjectDTO>> Get() => await _repo.Get();
+    public List<ProjectDTO> Get() => _repo.Get();
 
     [HttpGet("{id}"), AllowAnonymous]
     public async Task<ProjectDTO> Get(int id) => await _repo.Get(id);

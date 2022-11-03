@@ -16,7 +16,7 @@ public class MediaLinksController : ControllerBase
     }
 
     [HttpGet, AllowAnonymous]
-    public async Task<List<MediaLinkDTO>> Get() => await _repo.Get();
+    public List<MediaLinkDTO> Get() => _repo.Get();
 
     [HttpGet("{id}"), AllowAnonymous]
     public async Task<MediaLinkDTO> Get(int id) => await _repo.Get(id);

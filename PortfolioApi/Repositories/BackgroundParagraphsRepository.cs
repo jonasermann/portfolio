@@ -13,36 +13,36 @@ public class BackgroundParagraphsRepository : IBackgroundParagraphsRepository
         _context = context;
     }
 
-    public BackgroundParagraphDTO ConvertToAboutParagraphDTO(BackgroundParagraph backgroundParagraph) =>  new BackgroundParagraphDTO
+    public static BackgroundParagraphDTO ConvertToBackgroundParagraphDTO(BackgroundParagraph backgroundParagraph) =>  new()
     {
         Id = backgroundParagraph.Id,
         Text = backgroundParagraph.Text
     };
 
-    public BackgroundParagraph ConvertToAboutParagraph(BackgroundParagraphDTO aboutParagraphDTO) => new BackgroundParagraph
+    public static BackgroundParagraph ConvertToBackgroundParagraph(BackgroundParagraphDTO backgroundParagraphDTO) => new()
     {
-        Id = aboutParagraphDTO.Id,
-        Text = aboutParagraphDTO.Text
+        Id = backgroundParagraphDTO.Id,
+        Text = backgroundParagraphDTO.Text
     };
 
-    public BackgroundParagraphDTO EmptyAboutParagraphDTO() => new BackgroundParagraphDTO { };
+    public BackgroundParagraphDTO EmptyBackgroundParagraphDTO() => new BackgroundParagraphDTO { };
 
-    public async Task<List<BackgroundParagraphDTO>> Get()
+    public List<BackgroundParagraphDTO> Get()
     {
         if (_context.BackgroundParagraphs == null) return new List<BackgroundParagraphDTO>() { };
-        var aboutParagraphs = await _context.BackgroundParagraphs.ToListAsync();
+        var backgroundParagraphs = _context.BackgroundParagraphs;
 
-        var aboutParagraphDTOs = aboutParagraphs.Select(p => ConvertToAboutParagraphDTO(p)).ToList();
-        return aboutParagraphDTOs;
+        var backgroundParagraphDTOs = backgroundParagraphs.Select(p => ConvertToBackgroundParagraphDTO(p)).ToList();
+        return backgroundParagraphDTOs;
     }
 
     public async Task<BackgroundParagraphDTO> Get(int id)
     {
-        if (_context.BackgroundParagraphs == null) return EmptyAboutParagraphDTO();
-        var aboutParagraph = await _context.BackgroundParagraphs.FirstOrDefaultAsync(p => p.Id == id);
+        if (_context.BackgroundParagraphs == null) return EmptyBackgroundParagraphDTO();
+        var backgroundParagraph = await _context.BackgroundParagraphs.FirstOrDefaultAsync(p => p.Id == id);
 
-        if (aboutParagraph == null) return EmptyAboutParagraphDTO();
-        return ConvertToAboutParagraphDTO(aboutParagraph);
+        if (backgroundParagraph == null) return EmptyBackgroundParagraphDTO();
+        return ConvertToBackgroundParagraphDTO(backgroundParagraph);
     }
 
     public async Task<BackgroundParagraphDTO> Add(BackgroundParagraphCreateDTO backgroundParagraphCreateDTO)
@@ -51,25 +51,25 @@ public class BackgroundParagraphsRepository : IBackgroundParagraphsRepository
         if (_context.BackgroundParagraphs == null) id = 0;
         else id = await _context.BackgroundParagraphs.MaxAsync(p => p.Id);
 
-        var newAboutParagraph = new BackgroundParagraph
+        var newBackgroundParagraph = new BackgroundParagraph
         {
             Id = id + 1,
             Text = backgroundParagraphCreateDTO.Text
         };
 
-        if (_context.BackgroundParagraphs == null) return EmptyAboutParagraphDTO();
-        await _context.BackgroundParagraphs.AddAsync(newAboutParagraph);
+        if (_context.BackgroundParagraphs == null) return EmptyBackgroundParagraphDTO();
+        await _context.BackgroundParagraphs.AddAsync(newBackgroundParagraph);
         await _context.SaveChangesAsync();
 
-        return ConvertToAboutParagraphDTO(newAboutParagraph);
+        return ConvertToBackgroundParagraphDTO(newBackgroundParagraph);
     }
 
     public async Task<BackgroundParagraphDTO> Put(BackgroundParagraphDTO backgroundParagraphDTO)
     {
         if (_context.BackgroundParagraphs == null) throw new Exception("Database Empty.");
-        var updatedAboutParagraph = ConvertToAboutParagraph(backgroundParagraphDTO);
+        var updatedBackgroundParagraph = ConvertToBackgroundParagraph(backgroundParagraphDTO);
 
-        _context.BackgroundParagraphs.Update(updatedAboutParagraph);
+        _context.BackgroundParagraphs.Update(updatedBackgroundParagraph);
         await _context.SaveChangesAsync();
 
         return backgroundParagraphDTO;
@@ -78,10 +78,10 @@ public class BackgroundParagraphsRepository : IBackgroundParagraphsRepository
     public async Task Delete(int id)
     {
         if (_context.BackgroundParagraphs == null) return;
-        var aboutParagraph = await _context.BackgroundParagraphs.FirstOrDefaultAsync(p => p.Id == id);
+        var backgroundParagraph = await _context.BackgroundParagraphs.FirstOrDefaultAsync(p => p.Id == id);
 
-        if (aboutParagraph == null) return;
-        _context.Remove(aboutParagraph);
+        if (backgroundParagraph == null) return;
+        _context.Remove(backgroundParagraph);
         await _context.SaveChangesAsync();
     }
 }

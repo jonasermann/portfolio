@@ -16,7 +16,7 @@ public class SkillsController : ControllerBase
     }
 
     [HttpGet, AllowAnonymous]
-    public async Task<List<SkillDTO>> Get() => await _repo.Get();
+    public List<SkillDTO> Get() => _repo.Get();
 
     [HttpGet("{id}"), AllowAnonymous]
     public async Task<SkillDTO> Get(int id) => await _repo.Get(id);

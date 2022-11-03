@@ -4,7 +4,7 @@ namespace PortfolioApi.Repositories;
 
 public interface IMediaLinksRepository
 {
-    public Task<List<MediaLinkDTO>> Get();
+    public List<MediaLinkDTO> Get();
 
     public Task<MediaLinkDTO> Get(int id);
 
