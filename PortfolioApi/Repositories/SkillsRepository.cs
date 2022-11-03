@@ -13,7 +13,7 @@ public class SkillsRepository : ISkillsRepository
         _context = context;
     }
 
-    public SkillDTO ConvertToSkillDTO(Skill skill) => new SkillDTO
+    public static SkillDTO ConvertToSkillDTO(Skill skill) => new ()
     {
         Id = skill.Id,
         ImgUrl = skill.ImgUrl,
@@ -21,7 +21,7 @@ public class SkillsRepository : ISkillsRepository
         Type = skill.Type
     };
 
-    public Skill ConvertToSkill(SkillDTO skillDTO) => new Skill
+    public static Skill ConvertToSkill(SkillDTO skillDTO) => new ()
     {
         Id = skillDTO.Id,
         ImgUrl = skillDTO.ImgUrl,
@@ -33,10 +33,10 @@ public class SkillsRepository : ISkillsRepository
 
     public Skill EmptySkill() => new Skill { };
 
-    public async Task<List<SkillDTO>> Get()
+    public List<SkillDTO> Get()
     {
         if (_context.Skills == null) return new List<SkillDTO>() { };
-        var skills = await _context.Skills.ToListAsync();
+        var skills = _context.Skills;
 
         var skillDTOs = skills.Select(p => ConvertToSkillDTO(p)).ToList();
         return skillDTOs;

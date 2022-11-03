@@ -17,7 +17,7 @@ public class BackgroundParagraphsController : ControllerBase
     }
 
     [HttpGet, AllowAnonymous]
-    public async Task<List<BackgroundParagraphDTO>> Get() => await _repo.Get();
+    public List<BackgroundParagraphDTO> Get() => _repo.Get();
 
     [HttpGet("{id}"), AllowAnonymous]
     public async Task<BackgroundParagraphDTO> Get(int id) => await _repo.Get(id);

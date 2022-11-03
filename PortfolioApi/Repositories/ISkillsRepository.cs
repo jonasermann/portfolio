@@ -4,7 +4,7 @@ namespace PortfolioApi.Repositories;
 
 public interface ISkillsRepository
 {
-    public Task<List<SkillDTO>> Get();
+    public List<SkillDTO> Get();
 
     public Task<SkillDTO> Get(int id);
 

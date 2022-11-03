@@ -13,7 +13,7 @@ public class MediaLinksRepository : IMediaLinksRepository
         _context = context;
     }
 
-    public MediaLinkDTO ConvertToMediaLinkDTO(MediaLink mediaLink) => new()
+    public static MediaLinkDTO ConvertToMediaLinkDTO(MediaLink mediaLink) => new ()
     {
         Id = mediaLink.Id,
         ImgUrl = mediaLink.ImgUrl,
@@ -21,7 +21,7 @@ public class MediaLinksRepository : IMediaLinksRepository
         Text = mediaLink.Text
     };
 
-    public MediaLink ConvertToMediaLink(MediaLinkDTO mediaLinkDTO) => new()
+    public static MediaLink ConvertToMediaLink(MediaLinkDTO mediaLinkDTO) => new ()
     {
         Id = mediaLinkDTO.Id,
         ImgUrl = mediaLinkDTO.ImgUrl,
@@ -31,10 +31,10 @@ public class MediaLinksRepository : IMediaLinksRepository
 
     public MediaLinkDTO EmptyMediaLinkDTO() => new MediaLinkDTO { };
 
-    public async Task<List<MediaLinkDTO>> Get()
+    public List<MediaLinkDTO> Get()
     {
         if (_context.MediaLinks == null) return new List<MediaLinkDTO>() { };
-        var mediaLinks = await _context.MediaLinks.ToListAsync();
+        var mediaLinks = _context.MediaLinks;
 
         var mediaLinkDTOs = mediaLinks.Select(m => ConvertToMediaLinkDTO(m)).ToList();
         return mediaLinkDTOs;

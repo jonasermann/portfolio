@@ -13,13 +13,13 @@ public class PortfolioImagesRepository : IPortfolioImagesRepository
         _context = context;
     }
 
-    public PortfolioImageDTO ConvertToProjectDTO(PortfolioImage portfolioImage) => new PortfolioImageDTO
+    public static PortfolioImageDTO ConvertToPortfolioImageDTO(PortfolioImage portfolioImage) => new ()
     {
         Id = portfolioImage.Id,
         ByteArray = portfolioImage.ByteArray
     };
 
-    public PortfolioImage ConvertToProject(PortfolioImageDTO portfolioImageDTO) => new PortfolioImage
+    public static PortfolioImage ConvertToPortfolioImage(PortfolioImageDTO portfolioImageDTO) => new ()
     {
         Id = portfolioImageDTO.Id,
         ByteArray = portfolioImageDTO.ByteArray
@@ -55,13 +55,13 @@ public class PortfolioImagesRepository : IPortfolioImagesRepository
         await _context.PortfolioImages.AddAsync(newPortfolioImage);
         await _context.SaveChangesAsync();
 
-        return ConvertToProjectDTO(newPortfolioImage);
+        return ConvertToPortfolioImageDTO(newPortfolioImage);
     }
 
     public async Task<PortfolioImageDTO> Put(PortfolioImageDTO portfolioImageDTO)
     {
         if (_context.PortfolioImages == null) throw new Exception("Database Empty.");
-        var updatedPortfolioImage = ConvertToProject(portfolioImageDTO);
+        var updatedPortfolioImage = ConvertToPortfolioImage(portfolioImageDTO);
 
         _context.PortfolioImages.Update(updatedPortfolioImage);
         await _context.SaveChangesAsync();

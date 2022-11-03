@@ -13,7 +13,7 @@ public class ProjectsRepository : IProjectsRepository
         _context = context;
     }
 
-    public ProjectDTO ConvertToProjectDTO(Project project) =>  new ProjectDTO
+    public static ProjectDTO ConvertToProjectDTO(Project project) =>  new ()
     {
         Id = project.Id,
         Title = project.Title,
@@ -22,7 +22,7 @@ public class ProjectsRepository : IProjectsRepository
         GitUrl = project.GitUrl
     };
 
-    public Project ConvertToProject(ProjectDTO projectDTO) => new Project
+    public static Project ConvertToProject(ProjectDTO projectDTO) => new ()
     {
         Id = projectDTO.Id,
         Title = projectDTO.Title,
@@ -31,12 +31,12 @@ public class ProjectsRepository : IProjectsRepository
         GitUrl = projectDTO.GitUrl
     };
 
-    public ProjectDTO EmptyProjectDTO() => new ProjectDTO { };
+    public ProjectDTO EmptyProjectDTO() => new();
 
-    public async Task<List<ProjectDTO>> Get()
+    public List<ProjectDTO> Get()
     {
         if (_context.Projects == null) return new List<ProjectDTO>() { };
-        var projects = await _context.Projects.ToListAsync();
+        var projects = _context.Projects;
 
         var projectDTOs = projects.Select(p => ConvertToProjectDTO(p)).ToList();
         return projectDTOs;

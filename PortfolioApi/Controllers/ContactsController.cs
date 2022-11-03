@@ -17,7 +17,7 @@ public class ContactsController : Controller
     }
 
     [HttpGet, AllowAnonymous]
-    public async Task<List<ContactDTO>> Get() => await _repo.Get();
+    public List<ContactDTO> Get() => _repo.Get();
 
     [HttpGet("{id}"), AllowAnonymous]
     public async Task<ContactDTO> Get(int id) => await _repo.Get(id);
