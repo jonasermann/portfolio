@@ -32,7 +32,7 @@ builder.Services.AddAuthentication(a =>
     };
 });
 
-var connectionString = builder.Configuration["ConnectionString"];
+var connectionString = builder.Configuration.GetConnectionString("ConnectionString");
 builder.Services.AddDbContext<PortfolioAppContext>(options =>
     options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
